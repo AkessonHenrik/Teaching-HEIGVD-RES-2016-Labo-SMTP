@@ -1,0 +1,9 @@
+test1.test1@test1.ch
+test2.test2@test2.ch
+test3.test3@test3.ch
+test4.test4@test4.ch
+test5.test5@test5.ch
+test6.test6@test6.ch
+test7.test7@test7.ch
+test8.test8@test8.ch
+test9.test9@test9.ch
