@@ -12,7 +12,6 @@ public class Group {
         Random r = new Random();
         this.sender = victims.remove(Math.abs(r.nextInt()) % victims.size());
     }
-
     @Override
     public String toString() {
         String result = "Sender is " + sender.getEmail() + "\n" + "Victims are: \n";
