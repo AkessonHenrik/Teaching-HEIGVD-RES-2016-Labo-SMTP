@@ -1,6 +1,8 @@
 package parsers;
 
 
+import mail.MailContent;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -8,30 +10,32 @@ import java.util.ArrayList;
  * Created by Henrik on 18.04.2016.
  */
 public class EmailContentParser {
-    private ArrayList<String> contents;
-    public EmailContentParser(File file) throws FileNotFoundException {
+    private ArrayList<MailContent> contents;
+
+    public EmailContentParser(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        contents = new ArrayList<>();
-        String str = "";
-        String content = "";
-        try {
-            while (str != null) {
+        contents = new ArrayList<MailContent>();
+        String str="";
+        String content;
+        String subject;
+        while(str != null) {
+            str = reader.readLine();
+            if(str == null)
+                break;
+            subject = str.substring(str.indexOf(':')+1);
+            content = "";
+            while(!str.equals("===")) {
                 str = reader.readLine();
-                if(str == null)
-                    break;
-                if(str.equals("===")) {
-                    contents.add(content);
-                    content = "";
-                } else {
-                    content += str + '\n';
-                }
+                if(!str.equals("==="))
+                    content += str + "\n";
             }
-            for(String s : contents) {
-                System.out.println("Content number " + contents.indexOf(s));
-                System.out.println(s);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+//            System.out.println("Subject:<"+subject+">");
+//            System.out.println("content:<"+content+">");
+            contents.add(new MailContent(subject, content));
         }
+    }
+
+    public ArrayList<MailContent> getContents() {
+        return contents;
     }
 }

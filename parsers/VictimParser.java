@@ -22,7 +22,6 @@ public class VictimParser {
                     break;
                 Person p = new Person(str);
                 victims.add(p);
-                System.out.println(str);
             }
         } catch (IOException e) {
             e.printStackTrace();

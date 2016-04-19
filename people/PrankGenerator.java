@@ -1,11 +1,12 @@
-package app;
+package people;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
+import app.Person;
+import mail.Mail;
+import mail.MailCreator;
 import parsers.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,24 +18,23 @@ public class PrankGenerator {
         try {
             configParser = new ConfigParser(new File("resources/smtp.config"));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Invalid configuration file, aborting program");
             return;
         }
 
         //Reading and testing victims
-        VictimParser vp = null;
+        VictimParser vp;
         try {
             vp = new VictimParser(new File("resources/victims.txt"));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Invalid victims file, aborting program");
+            return;
         }
 
         int numberOfGroups = configParser.getNumberOfGroups();
         System.out.println("In main: number of groups is : " + numberOfGroups);
 
-
         //Creating groups
-
         ArrayList<Person> victims = vp.getVictims();
 
         int numberOfPeopleByGroup = victims.size() / numberOfGroups;
@@ -52,11 +52,15 @@ public class PrankGenerator {
             System.out.println(g);
 
         //Reading and testing contents
+        EmailContentParser ecp;
         try {
-            EmailContentParser ecp = new EmailContentParser(new File("resources/emailContents.txt"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ecp = new EmailContentParser(new File("resources/emailContents.txt"));
+        } catch (IOException e) {
+            System.out.println("Invalid email content file, aborting program");
+            return;
         }
+
+        ArrayList<Mail> mailsToSend = new MailCreator(groups, ecp.getContents()).generateMails();
 
     }
 }

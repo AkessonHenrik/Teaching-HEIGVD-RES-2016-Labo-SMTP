@@ -1,11 +1,13 @@
-package app;
+package people;
+
+import app.Person;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Group {
-    Person sender;
-    ArrayList<Person> victims;
+    private Person sender;
+    private ArrayList<Person> victims;
 
     public Group(ArrayList<Person> victims) {
         this.victims = victims;
@@ -16,9 +18,16 @@ public class Group {
     public String toString() {
         String result = "Sender is " + sender.getEmail() + "\n" + "Victims are: \n";
         for (Person p : victims) {
-            result += "\t - " + p.getEmail() + ": " + p.getFirstName() + " " + p.getLastName() + '\n';
+            result += "\t - " + p.getEmail() + '\n';
         }
         return result;
     }
 
+    public Person getSender() {
+        return sender;
+    }
+
+    public ArrayList<Person> getVictims() {
+        return victims;
+    }
 }
