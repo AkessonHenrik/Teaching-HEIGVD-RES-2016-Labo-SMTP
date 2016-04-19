@@ -10,7 +10,7 @@ public class ConfigParser {
     private int port;
     private int numberOfGroups;
     private String witness;
-
+    private long timeOut;
     public ConfigParser(File file) throws IOException {
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -30,6 +30,10 @@ public class ConfigParser {
         line = reader.readLine();
         witness = line.substring(line.indexOf("=") + 1);
         System.out.println("Witness is: " + witness);
+
+        line = reader.readLine();
+        timeOut = Long.parseLong(line.substring(line.indexOf('=')+1));
+        System.out.println("Time out is " + timeOut);
     }
 
     public String getServer() {
@@ -47,4 +51,9 @@ public class ConfigParser {
     public String getWitness() {
         return witness;
     }
+
+    public long getTimeOut() {
+        return timeOut;
+    }
+
 }

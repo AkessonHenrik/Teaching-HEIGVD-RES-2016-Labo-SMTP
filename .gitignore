@@ -6,9 +6,10 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.mvn/timing.properties
+.mvn/timing.propertiesw
 .idea/
 out/
 TODO.txt
 /commandes.txt
 Teaching-HEIGVD-RES-2016-Labo-SMTP.iml
+resources/victims2.txt
