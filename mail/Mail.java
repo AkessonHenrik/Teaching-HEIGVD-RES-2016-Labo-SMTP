@@ -17,4 +17,12 @@ public class Mail extends MailContent {
 //        this.viewFrom = viewFrom;
 //        this.viewTo = viewTo;
     }
+
+    public ArrayList<Person> getTo() {
+        return to;
+    }
+
+    public Person getFrom() {
+        return from;
+    }
 }

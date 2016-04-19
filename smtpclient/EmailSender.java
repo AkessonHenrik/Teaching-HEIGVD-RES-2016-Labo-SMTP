@@ -2,10 +2,13 @@ package smtpclient;
 
 import mail.Mail;
 import parsers.ConfigParser;
+import people.Person;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Henrik on 19.04.2016.
@@ -28,16 +31,37 @@ public class EmailSender {
         if(in == null || out == null)
             System.out.println("Couldn't connect");
         PrintWriter pr = new PrintWriter(socket.getOutputStream(), true);
-        pr.println("EHLO");
         System.out.println(socket.getInputStream());
-        pr.println("MAIL FROM: caca.boudin@caca.boudin");
-        pr.println("RCPT TO: henrikake@gmail.com");
-        pr.println("DATA");
-        pr.println("Subject: caca\n");
-        pr.println("From: caca\n");
-        pr.println("oasidjoaisjdoaijsoidj");
-        pr.println(".");
-        pr.println("quit");
-//        socket.close();
+//        pr.println("MAIL FROM: caca.boudin@caca.boudin");
+//        for(int i = 0; i < 10; i++) {
+//            pr.println("EHLO");
+//            pr.println("MAIL FROM: henrik.akesson@heig-vd.ch");
+//            pr.println("RCPT TO: fabien.salathe@heig-vd.ch");
+//            pr.println("RCPT TO: fabacrans@gmail.com");
+//            pr.println("RCPT TO: henrikake@gmail.com");
+//            pr.println("DATA");
+//            pr.println("Subject: caca\n");
+//            pr.println("memekeemekemekemek");
+//            pr.println(".");
+//            pr.println("quit");
+//        }
+        for(Mail m: mails) {
+            for(Person p: m.getTo()) {
+                pr.println("EHLO");
+                pr.println("MAIL FROM: " + m.getFrom().getEmail());
+//                System.out.println("Sending to: " + p.getEmail());
+                pr.println("RCPT TO: " + p.getEmail());
+                pr.println("DATA");
+                pr.println("Subject: " + m.getSubject() +"\n");
+                pr.println(m.getBody());
+                pr.println(".");
+                pr.println("quit");
+
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }}
+        }
     }
 }
