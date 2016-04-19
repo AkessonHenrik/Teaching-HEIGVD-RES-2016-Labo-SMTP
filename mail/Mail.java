@@ -1,6 +1,6 @@
 package mail;
 
-import app.Person;
+import people.Person;
 
 import java.util.ArrayList;
 

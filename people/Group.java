@@ -1,7 +1,5 @@
 package people;
 
-import app.Person;
-
 import java.util.ArrayList;
 import java.util.Random;
 

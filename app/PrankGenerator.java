@@ -1,9 +1,11 @@
-package people;
+package app;
 
-import app.Person;
+import people.Person;
 import mail.Mail;
 import mail.MailCreator;
 import parsers.*;
+import people.Group;
+import smtpclient.EmailSender;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,6 +63,7 @@ public class PrankGenerator {
         }
 
         ArrayList<Mail> mailsToSend = new MailCreator(groups, ecp.getContents()).generateMails();
-
+        EmailSender emailSender = new EmailSender(mailsToSend, configParser);
+        emailSender.sendEmails();
     }
 }

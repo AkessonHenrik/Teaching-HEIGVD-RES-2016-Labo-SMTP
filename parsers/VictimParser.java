@@ -1,6 +1,6 @@
 package parsers;
 
-import app.Person;
+import people.Person;
 
 import java.io.*;
 import java.util.ArrayList;
