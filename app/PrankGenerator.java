@@ -64,6 +64,11 @@ public class PrankGenerator {
 
         ArrayList<Mail> mailsToSend = new MailCreator(groups, ecp.getContents()).generateMails();
         EmailSender emailSender = new EmailSender(mailsToSend, configParser);
-        emailSender.sendEmails();
+        try {
+            emailSender.sendEmails();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to send emails");
+        }
     }
 }
