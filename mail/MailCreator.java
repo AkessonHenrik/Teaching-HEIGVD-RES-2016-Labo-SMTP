@@ -4,8 +4,7 @@ import people.Group;
 
 import java.util.ArrayList;
 
-//Make singleton?
-
+//Creates a list of e-mail instances from a list of contents and a list of groups
 public class MailCreator {
     private ArrayList<MailContent> contents;
     private ArrayList<Group> groups;

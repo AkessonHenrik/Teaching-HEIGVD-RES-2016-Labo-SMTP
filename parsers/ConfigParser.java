@@ -5,6 +5,8 @@ import java.io.*;
 /**
  * Created by Henrik on 18.04.2016.
  */
+
+//Reads the configuration file, and interprets its content
 public class ConfigParser {
     private String server;
     private int port;
@@ -33,7 +35,7 @@ public class ConfigParser {
 
         line = reader.readLine();
         timeOut = Long.parseLong(line.substring(line.indexOf('=')+1));
-        System.out.println("Time out is " + timeOut);
+        System.out.println("Timeout is " + timeOut);
     }
 
     public String getServer() {

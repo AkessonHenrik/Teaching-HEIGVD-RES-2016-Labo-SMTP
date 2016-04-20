@@ -24,7 +24,7 @@ public class PrankGenerator {
             return;
         }
 
-        //Reading and testing victims
+        //Reading the list of victims
         VictimParser vp;
         try {
             vp = new VictimParser(new File("resources/victims.txt"));
@@ -33,8 +33,9 @@ public class PrankGenerator {
             return;
         }
 
+        //Reading the number of groups
         int numberOfGroups = configParser.getNumberOfGroups();
-        System.out.println("In main: number of groups is : " + numberOfGroups);
+        System.out.println("Number of groups : " + numberOfGroups);
 
         //Creating groups
         ArrayList<Person> victims = vp.getVictims();
@@ -50,20 +51,30 @@ public class PrankGenerator {
             }
             groups.add(new Group(groupVictims));
         }
+
         for(Group g : groups)
             System.out.println(g);
 
         //Reading and testing contents
-        EmailContentParser ecp;
+        EmailContentParser ecp = null;
+
         try {
             ecp = new EmailContentParser(new File("resources/emailContents.txt"));
         } catch (IOException e) {
-            System.out.println("Invalid email content file, aborting program");
-            return;
+            e.printStackTrace();
         }
 
+        //Creating the Mail instances to be sent
         ArrayList<Mail> mailsToSend = new MailCreator(groups, ecp.getContents()).generateMails();
-        EmailSender emailSender = new EmailSender(mailsToSend, configParser);
+        EmailSender emailSender;
+        try {
+            emailSender = new EmailSender(mailsToSend, configParser);
+        } catch (IOException e) {
+            System.out.println("Connection couldn't be established, aborting probram");
+            e.printStackTrace();
+            return;
+        }
+        //Sending emails
         try {
             emailSender.sendEmails();
         } catch (IOException e) {

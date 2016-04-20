@@ -10,40 +10,43 @@ import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 
-/**
- * Created by Henrik on 19.04.2016.
- */
 public class EmailSender {
+
     private final ArrayList<Mail> mails;
     private final ConfigParser config;
+    private PrintWriter pr;
 
-    public EmailSender(ArrayList<Mail> mailsToSend, ConfigParser config) {
+    public EmailSender(ArrayList<Mail> mailsToSend, ConfigParser config) throws IOException {
+
         this.mails = mailsToSend;
         this.config = config;
-    }
-
-    public void sendEmails() throws IOException {
-        System.out.println("port: <" + config.getPort() + ">");
-        System.out.println("Server: <" + config.getServer() + ">");
         Socket socket = new Socket(config.getServer(), config.getPort());
         OutputStream out = socket.getOutputStream();
         InputStream in = socket.getInputStream();
         if (in == null || out == null)
             System.out.println("Couldn't connect");
-        PrintWriter pr = new PrintWriter(socket.getOutputStream(), true);
-        System.out.println(socket.getInputStream());
+
+        //We wrap the outputstream with a PrintWriter, since we will be writing text to it
+        pr = new PrintWriter(socket.getOutputStream(), true);
+    }
+
+    public void sendEmails() throws IOException {
+
+        //For all mails in list
         for (Mail m : mails) {
+
             pr.println("EHLO");
             pr.println("MAIL FROM: " + m.getFrom().getEmail());
-//                System.out.println("Sending to: " + p.getEmail());
+
+            //One "RCPT TO: <email address>" for each victim
             for (Person p : m.getTo()) {
                 pr.println("RCPT TO: " + p.getEmail());
             }
             pr.println("DATA");
             pr.println("From: " + m.getFrom().getEmail());
             pr.print("To: ");
-            for(Person p : m.getTo()) {
-                pr.print(p.getEmail()+", ");
+            for (Person p : m.getTo()) {
+                pr.print(p.getEmail() + ", ");
             }
             pr.print('\n');
             pr.println("Cc: " + config.getWitness());
@@ -52,6 +55,7 @@ public class EmailSender {
             pr.println(".");
             pr.println("quit");
 
+            //The program sleeps for the amount of time specified in the config file
             try {
                 sleep(config.getTimeOut());
             } catch (InterruptedException e) {

@@ -3,6 +3,7 @@ package people;
 import java.util.ArrayList;
 import java.util.Random;
 
+//Defines groups, which contain a sender and an array of victims
 public class Group {
     private Person sender;
     private ArrayList<Person> victims;

@@ -9,12 +9,14 @@ import java.util.ArrayList;
 /**
  * Created by Henrik on 18.04.2016.
  */
+
+//Reads the email content file and interprets it
 public class EmailContentParser {
     private ArrayList<MailContent> contents;
 
     public EmailContentParser(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        contents = new ArrayList<MailContent>();
+        contents = new ArrayList<>();
         String str="";
         String content;
         String subject;
@@ -29,8 +31,6 @@ public class EmailContentParser {
                 if(!str.equals("==="))
                     content += str + "\n";
             }
-//            System.out.println("Subject:<"+subject+">");
-//            System.out.println("content:<"+content+">");
             contents.add(new MailContent(subject, content));
         }
     }

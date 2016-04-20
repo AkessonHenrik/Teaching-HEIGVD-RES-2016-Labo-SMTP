@@ -1,5 +1,6 @@
 package mail;
 
+//Contains the subject and body of an email
 public class MailContent {
     private String subject;
 

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 /**
  * Created by Henrik on 18.04.2016.
  */
+
+//Reads the victims list file and interprets it
 public class VictimParser {
     private ArrayList<Person> victims;
 
