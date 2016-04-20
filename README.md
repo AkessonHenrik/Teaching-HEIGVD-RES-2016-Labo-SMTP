@@ -27,14 +27,19 @@ There are 5 class packages in this program:
 
 ####Class diagrams:
 - **people**
+
 ![people package](figures/people.png "people package")
 - **parsers**
+
 ![parsers package](figures/parsers.png "parsers package")
 - **mail**
+
 ![mail](figures/mail.png)
 - **smtpclient**
+
 ![smtpclient](figures/smtpclient.png)
 - **app**
+
 ![app](figures/app.png)
 
 Here's the main lines: The app reads all the files in the resources directory, and proceeds to create Groups of victims. It then assigns an email content to each group, creates the Mails to be sent and sends them to the smtpclient class, which will in turn send them to the server.
